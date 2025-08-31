@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,12 +8,42 @@
             margin: 0;
             background: #000;
             display: flex;
-            justify-content: center;
+            flex-direction: column; /* heading at top, diya below */
+            justify-content: flex-start;
             align-items: center;
-            height: 100vh;
-            overflow: hidden;
-            /* Significantly reduced gradient */
-            background: radial-gradient(circle at center, #eac24bf4 2%, #000000 45%);
+            min-height: 100vh;   /* allow body to grow */
+            overflow-y: auto;    /* enable scroll if needed */
+
+            /* Adjusted gradient */
+            background: radial-gradient(
+                circle at center 70%,   /* glow pushed lower */
+                rgba(234, 194, 75, 0.6) 2%,   /* softer golden center */
+                rgba(0, 0, 0, 0.95) 45%,     /* darker near heading */
+                #000 80%                     /* fade to black edges */
+            );
+        }
+
+        /* Heading styles */
+        .heading {
+            text-align: center;
+            color: rgb(245, 172, 14);
+            font-family: "Georgia", serif;
+            font-size: 28px;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            text-shadow: 0 0 8px rgb(179, 167, 101), 0 0 15px rgb(150, 105, 22);
+            line-height: 1.6;
+        }
+
+        /* BETWEEN styles */
+        .between {
+            font-size: 20px;
+            font-weight: normal;
+            display: block;
+            margin: 15px 0; /* equal spacing top and bottom */
+            color: rgb(245, 172, 14); /* golden */
+            text-shadow: 0 0 6px rgb(179, 167, 101), 0 0 12px rgb(150, 105, 22);
         }
 
         /* Floating sparkles */
@@ -39,11 +67,14 @@
         .container {
             position: relative;
             display: inline-block;
+            margin-top: 50px; /* pushes diya stand lower */
         }
 
         .diya-stand {
             width: 350px;
             display: block;
+            max-height: 70vh; /* ensures full stand visible */
+            object-fit: contain;
             filter: drop-shadow(0px 0px 30px rgba(255, 200, 80, 0.3));
         }
 
@@ -57,10 +88,10 @@
             border-radius: 40% 40% 60% 60%;
             box-shadow: 0 0 30px 10px rgba(255, 200, 100, 0.7);
             display: none;
-            opacity: 0; /* Start with 0 opacity for transition */
+            opacity: 0;
             animation: flicker 1s infinite alternate;
             transform-origin: bottom center;
-            transition: opacity 2s ease-in-out; /* This is where you can change the lighting speed */
+            transition: opacity 2s ease-in-out;
         }
 
         @keyframes flicker {
@@ -72,6 +103,15 @@
 </head>
 <body>
     
+    <div class="heading">
+        MOU SIGNING CEREMONY
+        <span class="between">BETWEEN</span>
+        PRESIDENCY UNIVERSITY, BENGALURU <br>
+        & <br>
+        TOYOTA KIRLOSKAR MOTOR (TKM)
+    </div>
+
+    <!-- Sparkles -->
     <div class="sparkle" style="top:10%; left:15%; animation-delay:0s;"></div>
     <div class="sparkle" style="top:25%; left:85%; animation-delay:1.5s;"></div>
     <div class="sparkle" style="top:40%; left:5%; animation-delay:3s;"></div>
@@ -115,12 +155,10 @@
 
         document.body.addEventListener("click", () => {
             if (litCount < flames.length) {
-                // Make the flame visible
                 flames[litCount].style.display = "block"; 
-                // Then, after a tiny delay, set opacity to 1 to trigger the CSS transition
                 setTimeout(() => {
                     flames[litCount].style.opacity = "1";
-                }, 10); // 10ms delay is enough for the transition to catch
+                }, 10);
 
                 if (litCount === 0) {
                     music.play();
@@ -132,3 +170,5 @@
     </script>
 </body>
 </html>
+
+
