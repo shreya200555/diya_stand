@@ -1,0 +1,134 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Diya Stand Lighting</title>
+    <style>
+        body {
+            margin: 0;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            /* Significantly reduced gradient */
+            background: radial-gradient(circle at center, #eac24bf4 2%, #000000 45%);
+        }
+
+        /* Floating sparkles */
+        .sparkle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: float 6s infinite ease-in-out;
+            box-shadow: 0 0 5px white, 0 0 10px gold;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) scale(1); opacity: 0.8; }
+            50% { transform: translateY(-50px) scale(1.2); opacity: 1; }
+            100% { transform: translateY(0) scale(1); opacity: 0.5; }
+        }
+
+        .container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .diya-stand {
+            width: 350px;
+            display: block;
+            filter: drop-shadow(0px 0px 30px rgba(255, 200, 80, 0.3));
+        }
+
+        /* Flames */
+        .flame {
+            position: absolute;
+            width: 30px;
+            height: 50px;
+            background: radial-gradient(ellipse at center, #ffd700 20%, #ff8c00 70%, transparent 100%);
+            clip-path: ellipse(40% 60% at 50% 40%);
+            border-radius: 40% 40% 60% 60%;
+            box-shadow: 0 0 30px 10px rgba(255, 200, 100, 0.7);
+            display: none;
+            opacity: 0; /* Start with 0 opacity for transition */
+            animation: flicker 1s infinite alternate;
+            transform-origin: bottom center;
+            transition: opacity 2s ease-in-out; /* This is where you can change the lighting speed */
+        }
+
+        @keyframes flicker {
+            0% { transform: scaleY(1) scaleX(1); opacity: 0.9; }
+            50% { transform: scaleY(1.1) scaleX(0.95); opacity: 1; }
+            100% { transform: scaleY(0.95) scaleX(1.05); opacity: 0.85; }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="sparkle" style="top:10%; left:15%; animation-delay:0s;"></div>
+    <div class="sparkle" style="top:25%; left:85%; animation-delay:1.5s;"></div>
+    <div class="sparkle" style="top:40%; left:5%; animation-delay:3s;"></div>
+    <div class="sparkle" style="top:55%; left:90%; animation-delay:4.5s;"></div>
+    <div class="sparkle" style="top:70%; left:25%; animation-delay:6s;"></div>
+    <div class="sparkle" style="top:85%; left:75%; animation-delay:7.5s;"></div>
+    <div class="sparkle" style="top:20%; left:30%; animation-delay:0.5s;"></div>
+    <div class="sparkle" style="top:50%; left:70%; animation-delay:2s;"></div>
+    <div class="sparkle" style="top:80%; left:40%; animation-delay:3.5s;"></div>
+    <div class="sparkle" style="top:30%; left:60%; animation-delay:5s;"></div>
+    <div class="sparkle" style="top:60%; left:20%; animation-delay:6.5s;"></div>
+    <div class="sparkle" style="top:15%; left:50%; animation-delay:1s;"></div>
+    <div class="sparkle" style="top:45%; left:10%; animation-delay:2.5s;"></div>
+    <div class="sparkle" style="top:75%; left:95%; animation-delay:4s;"></div>
+    <div class="sparkle" style="top:25%; left:55%; animation-delay:5.5s;"></div>
+    <div class="sparkle" style="top:65%; left:35%; animation-delay:7s;"></div>
+    <div class="sparkle" style="top:90%; left:5%; animation-delay:8.5s;"></div>
+
+    <div class="container">
+        <img src="diyaaaaa.png" alt="Diya Stand" class="diya-stand" id="diyaStand">
+        
+        <div class="flame" id="flame1" style="top: 180px; left: 70px;"></div>
+        <div class="flame" id="flame2" style="top: 205px; left: 160px;"></div>
+        <div class="flame" id="flame3" style="top: 168px; left: 108px;"></div>
+        <div class="flame" id="flame4" style="top: 167px; left: 212px;"></div>
+        <div class="flame" id="flame5" style="top: 187px; left: 250px;"></div>
+    </div>
+
+    <audio id="bgMusic" src="tune.mp3"></audio>
+
+    <script>
+        let litCount = 0;
+        const flames = [
+            document.getElementById("flame1"),
+            document.getElementById("flame2"),
+            document.getElementById("flame3"),
+            document.getElementById("flame4"),
+            document.getElementById("flame5"),
+        ];
+        const music = document.getElementById("bgMusic");
+
+        document.body.addEventListener("click", () => {
+            if (litCount < flames.length) {
+                // Make the flame visible
+                flames[litCount].style.display = "block"; 
+                // Then, after a tiny delay, set opacity to 1 to trigger the CSS transition
+                setTimeout(() => {
+                    flames[litCount].style.opacity = "1";
+                }, 10); // 10ms delay is enough for the transition to catch
+
+                if (litCount === 0) {
+                    music.play();
+                    music.loop = true;
+                }
+                litCount++;
+            }
+        });
+    </script>
+</body>
+</html>
